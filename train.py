@@ -145,7 +145,7 @@ def two_step_multi_task_training(args, train_dataset, teacher_model, student_mod
                 for i in range(len(ac_embs)):
                     loss_den += kd_loss_func(ac_embs[i], nc_embs[i])
                 loss_den /= len(ac_embs)
-
+                loss_den *= args.denoising_weight
                 loss_den.backward()
                 torch.nn.utils.clip_grad_norm_(student_model.parameters(), args.max_grad_norm)
                 optimizer_den.step()
@@ -318,14 +318,6 @@ def get_args():
                         type=str,
                         required=True,
                         help="the respone type to use, [default, auto, manual, or no]")
-    parser.add_argument("--use_context_type",
-                        type=str,
-                        default='query_last',
-                        help="the context type to use, [query_first, query_last]")
-    parser.add_argument("--cqe_type",
-                        type=str,
-                        default='concat',
-                        help="use which cqe type to train")
     parser.add_argument("--load_student_model_from_checkpoint",
                         action='store_true',
                         help="whether to load student model checkpoint to continue train")
@@ -350,7 +342,7 @@ def get_args():
                         default=0.0)
     parser.add_argument("--denoising_weight",
                         type=float,
-                        default=0.0)
+                        default=1.0)
     
 
 
