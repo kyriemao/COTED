@@ -138,8 +138,8 @@ def two_step_multi_task_training(args, train_dataset, teacher_model, student_mod
 
             # denoising loss
             if args.add_denoising_loss and len(batch['bt_ac_match_ids']) > 0:
-                _, ac_embs = student_model(bt_actual_seq, bt_actual_seq_mask, batch['bt_ac_match_ids'])
-                _, nc_embs = student_model(bt_necessary_seq, bt_necessary_seq_mask, batch['bt_nc_match_ids'])
+                _, ac_embs = student_model(bt_actual_seq, bt_actual_seq_mask, term_match_ids = batch['bt_ac_match_ids'])
+                _, nc_embs = student_model(bt_necessary_seq, bt_necessary_seq_mask, term_match_ids = batch['bt_nc_match_ids'])
 
                 loss_den = 0
                 for i in range(len(ac_embs)):
