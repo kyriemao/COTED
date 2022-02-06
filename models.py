@@ -77,7 +77,7 @@ class ANCE_BertDPR(RobertaForSequenceClassification):
 model-related functions
 '''
 
-def load_model(pretrained_checkpoint_path, model_type):
+def load_model(pretrained_checkpoint_path):
     config = RobertaConfig.from_pretrained(
         pretrained_checkpoint_path,
         finetuning_task="MSMarco",
@@ -86,9 +86,5 @@ def load_model(pretrained_checkpoint_path, model_type):
         pretrained_checkpoint_path,
         do_lower_case=True
     )
-    if model_type == 'ANCE':
-        model = ANCE_BertDPR.from_pretrained(pretrained_checkpoint_path, config=config)
-    else:
-        raise NotImplementedError("{} has not been implemented".format(args.model_type))
-    
+    model = ANCE_BertDPR.from_pretrained(pretrained_checkpoint_path, config=config)
     return config, tokenizer, model

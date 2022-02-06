@@ -168,7 +168,7 @@ def search_one_by_one_with_faiss(args, passge_embeddings_dir, index, query_embed
 def get_test_query_embedding(args):
     # load model
     set_seed(args)
-    config, tokenizer, model = load_model(args.test_model_path, args.model_type)
+    config, tokenizer, model = load_model(args.test_model_path)
     mdoel = model.to(args.device)
 
     # test dataset/dataloader

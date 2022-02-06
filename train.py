@@ -101,17 +101,18 @@ def two_step_multi_task_training(args, train_dataset, teacher_model, student_mod
 
         if pre_dataset:
             train_loader = DataLoader(train_dataset, batch_size = int(args.train_batch_size / 2), shuffle=True , collate_fn=train_dataset.get_collate_fn(args))
-            pre_loader = DataLoader(pre_dataset, batch_size = int(args.train_batch_size / 2), shuffle=True , collate_fn=train_dataset.get_collate_fn(args))
+            pre_loader_iter = iter(DataLoader(pre_dataset, batch_size = int(args.train_batch_size / 2), shuffle=True , collate_fn=train_dataset.get_collate_fn(args)))
         else:
             train_loader = DataLoader(train_dataset, batch_size = args.train_batch_size, shuffle=True , collate_fn=train_dataset.get_collate_fn(args))
+            pre_loader_iter = None
 
         for batch in tqdm(train_loader,  desc="Step"):
             student_model.train()
             teacher_model.eval()
             
             # curriculum sampling
-            if epoch < len(dataset_list):
-                pre_batch = next(pre_loader)
+            if epoch < len(dataset_list) and pre_loader_iter:
+                pre_batch = next(pre_loader_iter)
                 batch = merge_batch(batch, pre_batch)
 
             bt_actual_seq = batch['bt_actual_seq'].to(device)
@@ -160,7 +161,10 @@ def two_step_multi_task_training(args, train_dataset, teacher_model, student_mod
             save_model(args, student_model, epoch)
 
         if epoch < len(dataset_list): 
-            pre_dataset.merge_with(train_dataset) 
+            if not pre_dataset:
+                pre_dataset = train_dataset
+            else:
+                pre_dataset.merge_with(train_dataset) 
 
     # always save the final model
     save_model(args, student_model, 'final')
@@ -175,8 +179,7 @@ def do_train():
 
     # load the teacher model
     config, tokenizer, teacher_model = load_model(
-                        pretrained_checkpoint_path=args.teacher_model_path, 
-                        model_type=args.teacher_model_type)
+                        pretrained_checkpoint_path=args.teacher_model_path)
 
     args.tokenizer = tokenizer
     teacher_model = teacher_model.to(args.device)
@@ -208,8 +211,7 @@ def do_train():
 
         set_seed(args)
         config, tokenizer, student_model = load_model(
-                    pretrained_checkpoint_path=args.student_model_path, 
-                    model_type=args.student_model_type)
+                    pretrained_checkpoint_path=args.student_model_path)
         
         student_model = student_model.to(args.device)
 
@@ -238,9 +240,6 @@ def get_args():
                         type=int, 
                         default=9,
                         help="Number of negative documents per query."
-    )
-    parser.add_argument("--use_kd", 
-                        action='store_true', 
     )
     parser.add_argument("--use_rank", 
                         action='store_true', 
@@ -321,9 +320,6 @@ def get_args():
     parser.add_argument("--load_student_model_from_checkpoint",
                         action='store_true',
                         help="whether to load student model checkpoint to continue train")
-    parser.add_argument("--student_model_checkpoint_path",
-                        type=str,
-                        help="the student model checkpoint path to load")
 
     # my method properties
    

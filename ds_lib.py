@@ -113,11 +113,12 @@ class CCDDataset(Dataset):
             }
 
             for example in batch:
+                example = example[0]
                 actual_seq = []
                 necessary_seq = []
                 ac_match_ids = []
                 nc_match_ids = []
-
+   
                 actual_seq.extend(example.query)
                 necessary_seq.extend(example.query)
             
@@ -241,12 +242,12 @@ def TDL_measurer(s):
     ts_ac_plus_q = set()
     ts_oracle_q = set()
     for x in s.actual_context:
-        ts_ac_plus_q = ts_ac_plus_q + set(x)
-    ts_ac_plus_q += set(s.query)
-    ts_ac_plus_q += set(s.response)
+        ts_ac_plus_q = ts_ac_plus_q.union(set(x))
+    ts_ac_plus_q = ts_ac_plus_q.union(set(s.query))
+    ts_ac_plus_q = ts_ac_plus_q.union(set(s.response))
     ts_oracle_q = set(s.oq)
 
-    tdl = len(ts_ac_plus_q + ts_oracle_q - (ts_ac_plus_q | ts_oracle_q))
+    tdl = len(ts_ac_plus_q.union(ts_oracle_q).difference(ts_ac_plus_q & ts_oracle_q))
     return tdl
 
 def ACL_measurer(s):
@@ -284,5 +285,5 @@ def curriculum_split(train_data):
         dataset = CCDDataset(None, [], None)    # blank dataset
         dataset.examples = L[i : i + step]
         res_datasets.append(dataset)
-
+    
     return res_datasets
