@@ -28,6 +28,15 @@ We provide two raw and preprocessed CAsT datasets in the *datasets* folder. Besi
   - test_cast20.sh
 
 ## Training
+First download the pre-trained ANCE model to the *checkpoints* folder.
+```bash
+mkdir checkpoints
+wget https://webdatamltrainingdiag842.blob.core.windows.net/semistructstore/OpenSource/Passage_ANCE_FirstP_Checkpoint.zip
+wget https://data.thunlp.org/convdr/ad-hoc-ance-orquac.cp
+unzip Passage_ANCE_FirstP_Checkpoint.zip
+mv "Passage ANCE(FirstP) Checkpoint" ad-hoc-ance-msmarco
+```
+
 To train our COTED, run the following scripts.
 ```bash
 # params: training_epoch, aug_ratio, loss_weight
