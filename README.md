@@ -28,7 +28,7 @@ We provide two raw and preprocessed CAsT datasets in the *datasets* folder. Besi
 ## Training
 To train our COTED, run the following scripts.
 ```bash
-# epoch, aug_ratio, loss_weight
+# params: training_epoch, aug_ratio, loss_weight
 
 # CAsT-19
 bash train_cast19.sh 6 2 0.01
