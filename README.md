@@ -28,7 +28,7 @@ We provide two raw and preprocessed CAsT datasets in the *datasets* folder. Besi
   - test_cast20.sh
 
 ## Training
-First download the pre-trained ANCE model to the *checkpoints* folder.
+First download the public pre-trained ANCE model to the *checkpoints* folder.
 ```bash
 mkdir checkpoints
 wget https://webdatamltrainingdiag842.blob.core.windows.net/semistructstore/OpenSource/Passage_ANCE_FirstP_Checkpoint.zip
