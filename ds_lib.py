@@ -196,8 +196,6 @@ def pad_seq_ids_with_mask(input_ids,
     return input_ids, attention_mask
 
 
-
-# v1: the most naive augmentation way 
 def conversation_data_aug_v1(train_data, max_sample_ratio):
     examples = train_data.examples
     ratio = max_sample_ratio

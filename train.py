@@ -112,6 +112,7 @@ def two_step_multi_task_training(args, train_dataset, teacher_model, student_mod
             
             # curriculum sampling
             if epoch < len(dataset_list) and pre_loader_iter:
+                # pair training
                 pre_batch = next(pre_loader_iter)
                 batch = merge_batch(batch, pre_batch)
 
