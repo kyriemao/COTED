@@ -1,7 +1,7 @@
 # COTED: Curriculum Contrastive Context Denoising for Few-shot Conversational Dense Retrieval
 This is a temporary anonymous repository of the paper "Curriculum Contrastive Context Denoising for Few-shot Conversational Dense Retrieval""
 
-![image](https://github.com/kyriemao/COTED/edit/main/overview.pdf)
+![image](overview.pdf)
 
 ## Prerequisites
 
