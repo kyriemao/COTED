@@ -14,7 +14,7 @@ python -u train.py \
 --log_dir=log_dir/$exp_name   \
 --model_output_dir=checkpoints/$exp_name \
 --num_train_epochs=$epoch \
---per_gpu_train_batch_size=3 \
+--per_gpu_train_batch_size=2 \
 --use_data_percent=1.0 \
 --n_gpu=1 \
 --overwrite_output_dir \
