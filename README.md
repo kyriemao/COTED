@@ -12,7 +12,7 @@ pip install -r requirements.txt
 ```
 
 ## Data
-We provide two raw and preprocessed CAsT datasets in the *datasets* folder. Besides, the human annotation data is in the *annotation_data* folder.
+We provide two raw and preprocessed CAsT datasets in the *datasets* folder. Besides, the human annotation data is in the *annotation_data* folder. **Please note that, although there are part of turn dependency annotations in the original dataset of CAsT 20, we find that it is not very accurate. Therefore, we refine the original annnotation by our team.**
 
 
 ## Main Files
