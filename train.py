@@ -145,7 +145,7 @@ def two_step_multi_task_training(args, train_dataset, teacher_model, student_mod
 
                 loss_den = 0
                 for i in range(len(ac_embs)):
-                    loss_den += kd_loss_func(ac_embs[i], nc_embs[i])
+                    loss_den += kd_loss_func(ac_embs[i], nc_embs[i].detach())
                 loss_den /= len(ac_embs)
                 loss_den *= args.denoising_weight
                 loss_den.backward()
