@@ -12,6 +12,7 @@ from IPython import embed
 import time
 
 
+
 # well-trained ANCE model for DPR
 class ANCE_BertDPR(RobertaForSequenceClassification):
     def __init__(self, config):
