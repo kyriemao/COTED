@@ -49,10 +49,20 @@ bash train_cast20.sh 6 3 0.01
 ```
 
 ## Testing
-For testing, you should first generate passages embeddings. One can refer to https://github.com/thunlp/ConvDR for generating these embeddings.
-The passages embeddings are expected to stored at *./datasets/collections/cast_shared/passage_embeddings*.
+For testing, you should first generate passages embeddings.
+
+Use
+
+```python
+python gen_tokenized_doc.py --config=gen_tokenized_doc.toml
+
+python gen_doc_embedding.py --config=gen_doc_embedding.toml
+```
 
 Then, run the following scripts for testing. 
+
+The passages embeddings are expected to stored at *./datasets/collections/cast_shared/passage_embeddings*.
+
 ```bash
 # param: test_epoch
 
