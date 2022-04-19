@@ -274,7 +274,7 @@ def get_args():
                         type=float,
                         help="the percent of the used training samples")
     parser.add_argument("--learning_rate",
-                        default=1e-5,
+                        default=5e-6,
                         type=float,
                         help="The initial learning rate for Adam.")
     parser.add_argument("--weight_decay",
