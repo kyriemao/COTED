@@ -170,7 +170,7 @@ def get_test_query_embedding(args):
     # load model
     set_seed(args)
     config, tokenizer, model = load_model(args.test_model_path)
-    mdoel = model.to(args.device)
+    model = model.to(args.device)
 
     # test dataset/dataloader
     args.eval_batch_size = args.per_gpu_eval_batch_size * max(1, args.n_gpu)
